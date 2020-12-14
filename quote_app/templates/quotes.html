@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <div id='quote_box'>
+        <h2>Quotable Quotes</h2>
+        {% for quote in quotes %}
+        <div class='quote_box'>
+            {% if current_user not in quote.user_like.all %}
+            {% if quote.quote_owner == current_user %}
+            <p><a href="/edit/{{quote.id}}">edit</a> | <a href="/delete/{{quote.id}}">delete</a></p>
+            {% endif %}
+            <p>{{quote.quoted_by}} : {{quote.quote}}</p>
+            <p>Posted by:<a href="/users/{{quote.quote_owner.id}}">{{quote.quote_owner.name}}</a></p>
+            <form action="/favorite/{{quote.id}}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Add to Favorites</button>
+            </form>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+
+    <div id='fav_quote'>
+        <h2>Your Favorites</h2>
+        {% for fav_quote in current_user.liked_quote.all %}
+        <div class='fav_quote'>
+            <p>{{fav_quote.quoted_by}} : {{fav_quote.quote}}</p>
+            <p>Posted by:<a href="/users/{{fav_quote.quote_owner.id}}">{{fav_quote.quote_owner.name}}</a></p>
+            <form action="/unfavorite/{{fav_quote.id}}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Remove From Favorites</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id='new_quote_box'>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h2>Contribute a Quote</h2>
+        <div id="make_quote">
+            <form action="/write_quote" method="POST">
+                {% csrf_token %}
+                <p>Quote By <input type="text" name="quoted_by" class="quote_name"></p>
+                <p>Message <input type="textarea" name="quote" class="msg_box"></p>
+                <p><button type="submit">Submit</button></p>
+            </form>
+        </div>
+    </div>
+    <a href="/logout">Logout</a>
+</body>
+
+</html>

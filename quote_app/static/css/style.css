@@ -1,0 +1,60 @@
+
+#quote_box{
+    display: inline-block;
+    border:powderblue;
+    border-style: solid;
+    width: 500px;
+    padding: 15px 15px;
+}
+.quote_box{
+    border:powderblue;
+    border-style: dashed;
+    width: 470px;
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+#new_quote_box{
+    display: inline-block;
+    border:grey;
+    border-style: solid;
+    width: 500px;
+    padding: 15px 15px;
+
+}
+
+
+#fav_quote{
+    display: inline-block;
+    border:pink;
+    border-style: solid;
+    width: 500px;
+    padding: 15px 15px;
+    vertical-align: top;
+}
+
+.fav_quote{
+    border:pink;
+    border-style: dashed;
+    width: 500px;
+    vertical-align: top;
+}
+
+.quote_name{
+    width: 345px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.msg_box {
+    width: 350px;
+    height: 100px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
